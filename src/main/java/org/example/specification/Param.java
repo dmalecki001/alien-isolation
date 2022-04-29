@@ -1,8 +1,6 @@
 package org.example.specification;
 
-import java.util.function.Supplier;
-
-public enum Param implements Supplier<String> {
+public enum Param {
 
   ID("id");
 
@@ -16,8 +14,4 @@ public enum Param implements Supplier<String> {
     return desc;
   }
 
-  @Override
-  public String get() {
-    return desc;
-  }
 }
