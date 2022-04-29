@@ -2,6 +2,8 @@ package org.example.specification;
 
 import io.restassured.authentication.PreemptiveBasicAuthScheme;
 import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.config.LogConfig;
+import io.restassured.config.RestAssuredConfig;
 import io.restassured.filter.Filter;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
@@ -32,8 +34,8 @@ public class ReusableSpec {
   public static <T extends Actor> RequestSpecification forActorWithApiKey(T actor) {
     return forActor()
         .addHeader(HEADER_NAME, actor.recall(ActorMemo.TOKEN))
-        //   .setConfig(RestAssuredConfig.config()
-        //      .logConfig(LogConfig.logConfig().blacklistHeader(HEADER_NAME)))
+        .setConfig(RestAssuredConfig.config()
+            .logConfig(LogConfig.logConfig().blacklistHeader(HEADER_NAME)))
         .build();
   }
 
