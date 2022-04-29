@@ -7,7 +7,7 @@
 clean test -Dusername=john -Dpassword=rambo -Dbase.url=https://google.com
 ```
 
-- **Report are located in**: 
+- **Reports are located in**: 
 ```
 target/site/serenity/index.html
 ```
