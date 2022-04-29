@@ -13,14 +13,13 @@ import net.thucydides.core.util.SystemEnvironmentVariables;
 
 public interface EnvironmentConfig {
 
-  String fetchProperty(DomainProp prop);
-
-  String envName();
-
   static EnvironmentConfig getInstance() {
     return EnvironmentConfigImpl.getInstance();
   }
 
+  String fetchProperty(DomainProp prop);
+
+  String envName();
 
   class EnvironmentConfigImpl implements EnvironmentConfig {
 
@@ -34,18 +33,6 @@ public interface EnvironmentConfig {
           .orElse(
               SystemEnvironmentVariables.createEnvironmentVariables().getProperty("environment"));
       PROPS = extractProps();
-    }
-
-    @Override
-    public String fetchProperty(DomainProp domainProp) {
-      return Optional.ofNullable(VARS.getProperty(domainProp.getProp()))
-          .or(() -> Optional.ofNullable(PROPS.getProperty(domainProp.getProp())))
-          .orElseThrow(() -> new RuntimeException("Property " + domainProp + " not found!"));
-    }
-
-    @Override
-    public String envName() {
-      return ENV_NAME;
     }
 
     private static Properties extractProps() {
@@ -65,6 +52,18 @@ public interface EnvironmentConfig {
 
     private static EnvironmentConfigImpl getInstance() {
       return EnvironmentConfigImplHelper.INSTANCE;
+    }
+
+    @Override
+    public String fetchProperty(DomainProp domainProp) {
+      return Optional.ofNullable(VARS.getProperty(domainProp.getProp()))
+          .or(() -> Optional.ofNullable(PROPS.getProperty(domainProp.getProp())))
+          .orElseThrow(() -> new RuntimeException("Property " + domainProp + " not found!"));
+    }
+
+    @Override
+    public String envName() {
+      return ENV_NAME;
     }
 
     private static final class EnvironmentConfigImplHelper {

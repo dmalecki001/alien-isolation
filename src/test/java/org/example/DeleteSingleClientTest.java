@@ -11,7 +11,6 @@ import org.example.rest.auth.AcquireToken;
 import org.example.rest.clients.CreateSingleClient;
 import org.example.rest.clients.DeleteSingleClient;
 import org.example.rest.clients.questions.SingleClient;
-import org.example.specification.JsonPayload;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -24,9 +23,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 @ExtendWith(SerenityJUnit5Extension.class)
 public class DeleteSingleClientTest {
 
+  private final ClientDTO clientDTO = ClientDTO.newClientDto();
   @CastMember(name = "Damian")
   private Actor damian;
-  private final ClientDTO clientDTO = ClientDTO.newClientDto();
 
   @BeforeAll
   public void setup() {

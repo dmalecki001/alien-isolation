@@ -7,7 +7,6 @@ import net.serenitybdd.screenplay.ensure.Ensure;
 import net.serenitybdd.screenplay.rest.abilities.CallAnApi;
 import org.example.domain.DomainProp;
 import org.example.domain.EnvironmentConfig;
-import org.example.domain.validatabledata.ClientDTO;
 import org.example.rest.auth.AcquireToken;
 import org.example.rest.clients.AcquireAllClients;
 import org.example.rest.clients.questions.AllClientsList;

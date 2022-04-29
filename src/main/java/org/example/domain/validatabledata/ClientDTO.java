@@ -28,6 +28,27 @@ public class ClientDTO implements Comparable<ClientDTO>, JsonPayload {
     this.id = id;
   }
 
+  public static Builder builder() {
+    return new Builder();
+  }
+
+  public static ClientDTO byMetaData(Map<String, String> map) {
+    return ClientDTO.builder().with(builder -> {
+      builder.firstName = map.get("firstName");
+      builder.lastName = map.get("lastName");
+      builder.phone = map.get("phone");
+      builder.id = map.get("id");
+    }).build();
+  }
+
+  public static ClientDTO newClientDto() {
+    return ClientDTO.builder().with(builder -> {
+      builder.firstName = "Amanda";
+      builder.lastName = "Ripley";
+      builder.phone = "+48 500 190 590";
+    }).build();
+  }
+
   public String getFirstName() {
     return firstName;
   }
@@ -42,36 +63,6 @@ public class ClientDTO implements Comparable<ClientDTO>, JsonPayload {
 
   public String getId() {
     return id;
-  }
-
-  public static Builder builder() {
-    return new Builder();
-  }
-
-  public static ClientDTO byMetaData(Map<String,String> map){
-         return ClientDTO.builder().with(builder -> {
-      builder.firstName = map.get("firstName");
-      builder.lastName = map.get("lastName");
-      builder.phone = map.get("phone");
-      builder.id = map.get("id");
-    }).build();
-  }
-
-  public static ClientDTO validatableClient() {
-    return ClientDTO.builder().with(builder -> {
-      builder.firstName = "Piotr";
-      builder.lastName = "Bigos";
-      builder.phone = "+48 800 190 590";
-      builder.id = "2a7906e00f1b";
-    }).build();
-  }
-
-  public static ClientDTO newClientDto() {
-    return ClientDTO.builder().with(builder -> {
-      builder.firstName = "Amanda";
-      builder.lastName = "Ripley";
-      builder.phone = "+48 500 190 590";
-    }).build();
   }
 
   @Override

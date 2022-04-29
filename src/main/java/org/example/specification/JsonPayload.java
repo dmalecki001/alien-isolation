@@ -8,7 +8,7 @@ public interface JsonPayload {
 
   String getPayload();
 
-  default  <T> String convert(T object) {
+  default <T> String convert(T object) {
     return JsonConverter.GSON.toJson(object);
   }
 
