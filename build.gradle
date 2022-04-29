@@ -1,0 +1,80 @@
+buildscript {
+    ext.kotlin_version = '1.6.10'
+    repositories {
+        mavenLocal()
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+    }
+    dependencies {
+        classpath "net.serenity-bdd:serenity-gradle-plugin:3.2.0"
+        classpath "net.serenity-bdd:serenity-single-page-report:3.2.0"
+    }
+}
+
+plugins {
+    id "net.serenity-bdd.serenity-gradle-plugin" version "3.2.0"
+    id 'idea'
+    id 'java'
+    id 'groovy'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+defaultTasks 'clean', 'test', 'aggregate'
+sourceCompatibility = 1.11
+targetCompatibility = 1.11
+group 'com.ey.saam'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+ext {
+    slf4jVersion = '1.7.36'
+    serenityCoreVersion = '3.2.0'
+    junitVersion = '5.8.2'
+    assertJVersion = '3.22.0'
+    logbackVersion = '1.2.11'
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+dependencies {
+    implementation "net.serenity-bdd:serenity-core:${serenityCoreVersion}",
+            'net.serenity-bdd:serenity-ensure:3.2.0',
+            "net.serenity-bdd:serenity-junit5:${serenityCoreVersion}",
+            "net.serenity-bdd:serenity-screenplay:${serenityCoreVersion}",
+            "net.serenity-bdd:serenity-screenplay-rest:${serenityCoreVersion}",
+            "net.serenity-bdd:serenity-single-page-report:${serenityCoreVersion}",
+            "org.junit.jupiter:junit-jupiter-api:${junitVersion}",
+            "org.assertj:assertj-core:${assertJVersion}",
+            "ch.qos.logback:logback-classic:${logbackVersion}",
+            'org.awaitility:awaitility:4.2.0',
+            'com.google.code.gson:gson:2.9.0'
+            'com.github.javafaker:javafaker:1.0.2'
+    testImplementation "net.serenity-bdd:serenity-ensure:${serenityCoreVersion}"
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+test {
+    useJUnitPlatform() {
+        includeTags("component")
+    }
+    testLogging.showStandardStreams = true
+    systemProperties System.getProperties()
+}
+gradle.startParameter.continueOnFailure = true
+test.finalizedBy(aggregate.finalizedBy(reports))
+
+clean {
+    delete 'build', 'target', 'history', 'junit.log'
+}
+
+serenity {
+    reports = ["single-page-html"]
+}

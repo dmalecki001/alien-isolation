@@ -1,0 +1,27 @@
+<configuration>
+  <appender class="ch.qos.logback.core.ConsoleAppender" name="STDOUT">
+    <!-- encoders are assigned the type
+         ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+    <encoder>
+      <pattern>%-4relative [%thread] %-5level %logger{35} - %msg %n</pattern>
+    </encoder>
+  </appender>
+  <appender class="ch.qos.logback.core.FileAppender" name="FILE">
+    <append>false</append>
+    <encoder>
+      <pattern>%-4r %-5level %logger{35}: %msg%n</pattern>
+    </encoder>
+    <!-- encoders are assigned the type
+         ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+    <file>junit.log</file>
+  </appender>
+  <logger level="INFO" name="junit">
+    <appender-ref ref="STDOUT"/>
+  </logger>
+  <!-- We want error logging from this logger to go to an extra appender
+       It still inherits CONSOLE STDOUT from the root logger -->
+  <root level="INFO">
+    <appender-ref ref="FILE"/>
+    <appender-ref ref="STDOUT"/>
+  </root>
+</configuration>
